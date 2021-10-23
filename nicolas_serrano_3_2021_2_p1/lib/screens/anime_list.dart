@@ -189,24 +189,23 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
                 padding: EdgeInsets.all(5),
                 child: Row(
                   children: [
-                    // e.anime_img.isEmpty
-                    //     ? Image(
-                    //         image: AssetImage('assets/anime404.jpg'),
-                    //         width: 160,
-                    //         height: 160,
-                    //       )
-                    //     : ClipRRect(
-                    //         borderRadius: BorderRadius.circular(40),
-                    //         child: FadeInImage(
-                    //           placeholder:
-                    //               AssetImage('assets/anime404.jpg'),
-                    //           //image: NetworkImage(e.imageFullPath), //TODOS
-                    //           image: AssetImage('assets/anime404.jpg'),
-                    //           width: 80,
-                    //           height: 80,
-                    //           fit: BoxFit.cover,
-                    //         ),
-                    //       ),
+                    e.anime_img.isEmpty
+                        ? Image(
+                            image: AssetImage('assets/anime404.jpg'),
+                            width: 160,
+                            height: 160,
+                          )
+                        : ClipRRect(
+                            //borderRadius: BorderRadius.circular(40),
+                            child: FadeInImage(
+                              placeholder:
+                                  AssetImage('assets/anime404.jpg'),
+                              image: NetworkImage(e.anime_img), 
+                              width: 100,
+                              height: 130,
+                              fit: BoxFit.cover,                              
+                            ),
+                          ),
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
