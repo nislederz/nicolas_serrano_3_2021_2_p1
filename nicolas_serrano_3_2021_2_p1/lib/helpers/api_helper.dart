@@ -24,8 +24,9 @@ class ApiHelper {
 
     List<AnimeList> list = [];    
     var decodedJson = jsonDecode(body);
-    if (decodedJson != null) {
-      for (var item in decodedJson) {
+    var jsonResult = decodedJson['data'];
+    if (jsonResult != null) {
+      for (var item in jsonResult) {
         list.add(AnimeList.fromJson(item));
       }
     }
