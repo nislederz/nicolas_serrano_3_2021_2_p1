@@ -48,10 +48,10 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
       ),
     );
   }
-  
-  Future<Null> _getAnimes() async{
+
+  Future<Null> _getAnimes() async {
     setState(() {
-      _showLoader= true;  
+      _showLoader = true;
     });
 
     var connectivityResult = await Connectivity().checkConnectivity();
@@ -60,33 +60,31 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
         _showLoader = false;
       });
       await showAlertDialog(
-        context: context,
-        title: 'Error', 
-        message: 'Verifica que estes conectado a internet.',
-        actions: <AlertDialogAction>[
+          context: context,
+          title: 'Error',
+          message: 'Verifica que estes conectado a internet.',
+          actions: <AlertDialogAction>[
             AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );    
+          ]);
       return;
     }
 
     Response response = await ApiHelper.getAnimes();
 
     setState(() {
-      _showLoader= false;
+      _showLoader = false;
     });
 
-    if(!response.isSuccess){
+    if (!response.isSuccess) {
       await showAlertDialog(
-        context: context,
-        title: 'Error',
-        message: response.message,
-        actions: <AlertDialogAction>[
-          AlertDialogAction(key: null, label: 'Aceptar'),
-        ]
-      );
+          context: context,
+          title: 'Error',
+          message: response.message,
+          actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+          ]);
       return;
-    }   
+    }
 
     setState(() {
       _animes = response.result;
@@ -179,84 +177,142 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
   }
 
   Widget _getListView() {
+    // return RefreshIndicator(
+    //   onRefresh: _getAnimes,
+    //   child: ListView(
+    //     children: _animes.map((e) {
+    //       return Card(
+    //         child: InkWell(
+    //           onTap: () => _goDetailAnime(e),
+    //           child: Container(
+    //             margin: EdgeInsets.all(10),
+    //             padding: EdgeInsets.all(5),
+    //             child: Row(
+    //               children: [
+    //                 e.anime_img.isEmpty
+    //                     ? Image(
+    //                         image: AssetImage('assets/anime404.jpg'),
+    //                         width: 160,
+    //                         height: 160,
+    //                       )
+    //                     : ClipRRect(
+    //                         //borderRadius: BorderRadius.circular(40),
+    //                         child: FadeInImage(
+    //                           placeholder:
+    //                               AssetImage('assets/anime404.jpg'),
+    //                           image: NetworkImage(e.anime_img),
+    //                           width: 100,
+    //                           height: 130,
+    //                           fit: BoxFit.cover,
+    //                         ),
+    //                       ),
+    //                 Expanded(
+    //                   child: Container(
+    //                     margin: EdgeInsets.symmetric(horizontal: 10),
+    //                     child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.start,
+    //                       children: [
+    //                         Column(
+    //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                           children: [
+    //                             Text(
+    //                               e.anime_name,
+    //                               style: TextStyle(
+    //                                 fontSize: 20,
+    //                                 fontWeight: FontWeight.bold,
+    //                               ),
+    //                             ),
+    //                             SizedBox(
+    //                               height: 5,
+    //                             ),
+    //                           ],
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       );
+    //     }).toList(),
+    //   ),
+    // );
     return RefreshIndicator(
-      onRefresh: _getAnimes,
-      child: ListView(
-        children: _animes.map((e) {
-          return Card(
-            child: InkWell(
-              onTap: () => _goDetailAnime(e),
-              child: Container(
+        onRefresh: _getAnimes,
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 1.0,                    
+          children: _animes.map((e) {
+          return Center(         
+            child: InkWell(                                          
+              onTap: () => _goDetailAnime(e),              
+              child: Container(                
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(5),
-                child: Row(
+                child: Stack(
+                  alignment: Alignment.bottomCenter,                     
                   children: [
-                    e.anime_img.isEmpty
-                        ? Image(
-                            image: AssetImage('assets/anime404.jpg'),
-                            width: 160,
-                            height: 160,
-                          )
-                        : ClipRRect(
-                            //borderRadius: BorderRadius.circular(40),
-                            child: FadeInImage(
-                              placeholder:
-                                  AssetImage('assets/anime404.jpg'),
-                              image: NetworkImage(e.anime_img), 
-                              width: 100,
-                              height: 130,
-                              fit: BoxFit.cover,                              
-                            ),
-                          ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  e.anime_name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                    Center(
+                      child: Row(                                        
+                        children:<Widget> [                                              
+                          e.anime_img.isEmpty
+                              ? Image(
+                                  image: AssetImage('assets/anime404.jpg'),
+                                  width: 160,
+                                  height: 160,
+                                )
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: FadeInImage(                                                                                          
+                                    placeholder: AssetImage('assets/anime404.jpg'),
+                                    image: NetworkImage(e.anime_img),
+                                    width: 165,
+                                    height: 200,
+                                    fit: BoxFit.cover,                              
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),                                
-                              ],
-                            ),
-                          ],
-                        ),
+                                ),   
+                        ],  
                       ),
                     ),
-                    // Icon(Icons.arrow_forward_ios)
+                    Container(
+                      width: 300,                      
+                      child: Card(
+                        color: Colors.black54,                      
+                        child: Container(
+                          child: Text(                        
+                            e.anime_name,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,                                    
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
             ),
           );
         }).toList(),
-      ),
+        ),
     );
   }
 
-  void _goDetailAnime(AnimeList animeList) async {    
-    String? result = await Navigator.push(
-      context, 
-        MaterialPageRoute(
-          builder: (context) => AnimeListDetail(
-            animeName: animeList.anime_name,             
-          )
-        )
-    );
 
-    if(result == 'yes'){
+  void _goDetailAnime(AnimeList animeList) async {
+    String? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AnimeListDetail(
+                  animeName: animeList.anime_name,
+                )));
+
+    if (result == 'yes') {
       _getAnimes();
     }
   }
-
 }

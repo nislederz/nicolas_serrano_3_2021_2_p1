@@ -24,7 +24,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Anime App',
-      home:  AnimeListScreen() 
+      home:  AnimeListScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ), 
     );
   }
 }
