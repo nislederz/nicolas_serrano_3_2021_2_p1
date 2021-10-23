@@ -52,21 +52,21 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
       _showLoader= true;  
     });
 
-    // var connectivityResult = await Connectivity().checkConnectivity();
-    // if (connectivityResult == ConnectivityResult.none) {
-    //   setState(() {
-    //     _showLoader = false;
-    //   });
-    //   await showAlertDialog(
-    //     context: context,
-    //     title: 'Error', 
-    //     message: 'Verifica que estes conectado a internet.',
-    //     actions: <AlertDialogAction>[
-    //         AlertDialogAction(key: null, label: 'Aceptar'),
-    //     ]
-    //   );    
-    //   return;
-    // }
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      setState(() {
+        _showLoader = false;
+      });
+      await showAlertDialog(
+        context: context,
+        title: 'Error', 
+        message: 'Verifica que estes conectado a internet.',
+        actions: <AlertDialogAction>[
+            AlertDialogAction(key: null, label: 'Aceptar'),
+        ]
+      );    
+      return;
+    }
 
     Response response = await ApiHelper.getAnimes();
 
@@ -231,7 +231,7 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
                         ),
                       ),
                     ),
-                    Icon(Icons.arrow_forward_ios)
+                    // Icon(Icons.arrow_forward_ios)
                   ],
                 ),
               ),
