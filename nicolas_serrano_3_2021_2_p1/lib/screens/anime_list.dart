@@ -176,69 +176,7 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
     ));
   }
 
-  Widget _getListView() {
-    // return RefreshIndicator(
-    //   onRefresh: _getAnimes,
-    //   child: ListView(
-    //     children: _animes.map((e) {
-    //       return Card(
-    //         child: InkWell(
-    //           onTap: () => _goDetailAnime(e),
-    //           child: Container(
-    //             margin: EdgeInsets.all(10),
-    //             padding: EdgeInsets.all(5),
-    //             child: Row(
-    //               children: [
-    //                 e.anime_img.isEmpty
-    //                     ? Image(
-    //                         image: AssetImage('assets/anime404.jpg'),
-    //                         width: 160,
-    //                         height: 160,
-    //                       )
-    //                     : ClipRRect(
-    //                         //borderRadius: BorderRadius.circular(40),
-    //                         child: FadeInImage(
-    //                           placeholder:
-    //                               AssetImage('assets/anime404.jpg'),
-    //                           image: NetworkImage(e.anime_img),
-    //                           width: 100,
-    //                           height: 130,
-    //                           fit: BoxFit.cover,
-    //                         ),
-    //                       ),
-    //                 Expanded(
-    //                   child: Container(
-    //                     margin: EdgeInsets.symmetric(horizontal: 10),
-    //                     child: Row(
-    //                       mainAxisAlignment: MainAxisAlignment.start,
-    //                       children: [
-    //                         Column(
-    //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                           children: [
-    //                             Text(
-    //                               e.anime_name,
-    //                               style: TextStyle(
-    //                                 fontSize: 20,
-    //                                 fontWeight: FontWeight.bold,
-    //                               ),
-    //                             ),
-    //                             SizedBox(
-    //                               height: 5,
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       );
-    //     }).toList(),
-    //   ),
-    // );
+  Widget _getListView() {  
     return RefreshIndicator(
         onRefresh: _getAnimes,
         child: GridView.count(

@@ -38,8 +38,8 @@ class _AnimeListDetailState extends State<AnimeListDetail> {
                   text: 'Por favor espere...',
                 )
               : Stack(children: <Widget>[
-                  _showPhoto(),
                   _getAnimeInfo(),
+                  _showPhoto(),
                 ])),
     );
   }
@@ -89,21 +89,22 @@ class _AnimeListDetailState extends State<AnimeListDetail> {
   Widget _showPhoto() {
     return Stack(children: <Widget>[
       Container(
-        // margin: EdgeInsets.only(top: 15,),
+        margin: EdgeInsets.only(
+          top: 15,
+          left: 70
+        ),
         child: _animedetails.img.isEmpty
             ? Image(
                 image: AssetImage('assets/anime404.jpg'),
-                width: 160,
-                height: 160,
+                width: 250,
+                height: 250,
               )
-            : ClipRRect(
-                //borderRadius: BorderRadius.circular(80),
+            : ClipRRect(                
                 child: FadeInImage(
                   placeholder: AssetImage('assets/anime404.jpg'),
                   image: NetworkImage(_animedetails.img),
-                  width: 700,
-                  height: 200,
-                  // fit: BoxFit.cover,
+                  width: 250,
+                  height: 250,
                 ),
               ),
       ),
@@ -111,49 +112,38 @@ class _AnimeListDetailState extends State<AnimeListDetail> {
   }
 
   Widget _getAnimeInfo() {
-    return RefreshIndicator(
-      onRefresh: _getAnimeDetail,
-      child: ListView(
-        children: _animedetails.data.map((e) {
-          return Card(
-            child: InkWell(
-              child: Container(
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(5),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  e.fact,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            height: 400,
+            child: RefreshIndicator(
+              onRefresh: _getAnimeDetail,
+              child: ListView(
+                children: _animedetails.data.map((e) {
+                  return Container(                     
+                    color: Colors.deepPurple,                    
+                    margin: EdgeInsets.all(1),
+                    padding: EdgeInsets.all(1),
+                    child: Card(
+                      color: Colors.black45,
+                      child: Text(
+                        e.fact,
+                        softWrap: true,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
-                  ],
-                ),
+                  );
+                }).toList(),
               ),
-            ),
-          );
-        }).toList(),
+            ), 
+          ),
+        ],
       ),
     );
-  }  
-
+  }
 }
