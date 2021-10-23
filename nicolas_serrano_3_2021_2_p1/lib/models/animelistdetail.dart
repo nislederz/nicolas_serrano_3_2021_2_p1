@@ -1,12 +1,12 @@
-class AnimeListDetail {
+class AnimeListDetails {
   bool success = false;
   String img = "";
   int totalFacts = 0;
   List<Data> data = new List.empty();
 
-  AnimeListDetail({required this.success, required this.img, required this.totalFacts, required this.data});
+  AnimeListDetails({required this.success, required this.img, required this.totalFacts, required this.data});
 
-  AnimeListDetail.fromJson(Map<String, dynamic> json) {
+  AnimeListDetails.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     img = json['img'];
     totalFacts = json['total_facts'];

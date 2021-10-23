@@ -34,7 +34,7 @@ class ApiHelper {
     return Response(isSuccess: true, result: list);
   }
 
-  static Future<Response> getUser(String anime_name) async {    
+  static Future<Response> getAnimeDetails(String anime_name) async {    
     var url = Uri.parse('${Constans.apiUrlAnime}/$anime_name');
     var response = await http.get(
       url,
@@ -50,7 +50,7 @@ class ApiHelper {
     }
 
     var decodedJson = jsonDecode(body);
-    return Response(isSuccess: true, result: AnimeListDetail.fromJson(decodedJson));
+    return Response(isSuccess: true, result: AnimeListDetails.fromJson(decodedJson));
   }
  
 }

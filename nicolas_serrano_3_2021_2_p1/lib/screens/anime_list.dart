@@ -6,6 +6,8 @@ import 'package:nicolas_serrano_3_2021_2_p1/helpers/api_helper.dart';
 import 'package:nicolas_serrano_3_2021_2_p1/models/animelist.dart';
 import 'package:nicolas_serrano_3_2021_2_p1/models/response.dart';
 
+import 'anime_list_details.dart';
+
 class AnimeListScreen extends StatefulWidget {
   const AnimeListScreen({Key? key}) : super(key: key);
 
@@ -183,7 +185,7 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
         children: _animes.map((e) {
           return Card(
             child: InkWell(
-              onTap: () => _goinfoUser(e),
+              onTap: () => _goDetailAnime(e),
               child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(5),
@@ -242,20 +244,19 @@ class _AnimeListScreenState extends State<AnimeListScreen> {
     );
   }
 
-  void _goinfoUser(AnimeList animeList) async {
-    // String? result = await Navigator.push(
-    //   context, 
-    //   MaterialPageRoute(
-    //     builder: (context) => UserInfoScreen(
-    //       token: widget.token, 
-    //       user: user,
-    //     )
-    //   )
-    // );
-    
-    // if(result == 'yes'){
-    //   _getAnimes();
-    // }
+  void _goDetailAnime(AnimeList animeList) async {    
+    String? result = await Navigator.push(
+      context, 
+        MaterialPageRoute(
+          builder: (context) => AnimeListDetail(
+            animeName: animeList.anime_name,             
+          )
+        )
+    );
+
+    if(result == 'yes'){
+      _getAnimes();
+    }
   }
 
 }
